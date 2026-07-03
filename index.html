@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Reporte Junio 2026 — Onside x LA REAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg:#F5F0EB; --ink:#14201c; --muted:#6b7280; --line:rgba(13,27,42,0.1); --green:#16a34a; --navy:#0D1B2A; --card:#fff; }
+        body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; line-height:1.6; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+        .page { max-width:880px; margin:0 auto; padding:64px 60px 80px; overflow-x:hidden; }
+
+        .doc-head { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:40px; }
+        .doc-head .logos { display:flex; align-items:center; gap:16px; }
+        .doc-head img.client { height:30px; }
+        .doc-head .logos span { color:#cbd5e1; font-weight:300; }
+        .doc-head img.lareal { height:26px; filter:brightness(0); opacity:0.9; }
+        .doc-meta { font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); text-align:right; }
+
+        .eyebrow { font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--green); margin-bottom:14px; }
+        h1 { font-size:40px; font-weight:900; letter-spacing:-1.6px; line-height:1.08; margin-bottom:16px; }
+        .lead { font-size:17px; color:#4b5563; max-width:640px; }
+
+        section { margin-top:48px; }
+        h2 { font-size:13px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--navy); margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--line); }
+        p { font-size:16px; color:#374151; margin-bottom:14px; }
+        p strong { color:var(--ink); font-weight:700; }
+        .sublabel { font-size:12px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:24px 0 12px; }
+
+        .summary { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:30px 32px; }
+        .summary p:last-child { margin-bottom:0; }
+        .todo { background:#FEF3C7; border-left:3px solid #F59E0B; color:#92400E; padding:14px 18px; border-radius:0 8px 8px 0; font-size:14.5px; font-weight:600; }
+
+        .metrics { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+        .metric { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 20px; }
+        .metric-l { font-size:11.5px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; line-height:1.3; min-height:2.6em; }
+        .metric-v { font-size:32px; font-weight:900; letter-spacing:-1.4px; color:var(--ink); line-height:1; }
+        .delta { display:inline-flex; align-items:center; gap:5px; margin-top:12px; font-size:12.5px; font-weight:700; padding:4px 10px; border-radius:50px; white-space:nowrap; }
+        .delta.good { color:#166534; background:#DCFCE7; }
+        .delta.bad { color:#b91c1c; background:#FEE2E2; }
+        .delta.flat { color:#6b7280; background:#f3f4f6; }
+        .metric-sub { font-size:12px; color:#9ca3af; margin-top:8px; }
+        .metric.hl { background:var(--navy); border-color:var(--navy); }
+        .metric.hl .metric-l { color:#93a7bd; }
+        .metric.hl .metric-v { color:#fff; }
+        .metric.hl .metric-sub { color:#7f95ab; }
+        .metric.hl .delta.good { color:#4ADE80; background:rgba(74,222,128,0.16); }
+        .metric.hl .delta.flat { color:#cbd5e1; background:rgba(255,255,255,0.1); }
+
+        .tbl-wrap { margin-top:6px; border:1px solid var(--line); border-radius:14px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+        table.tbl { width:100%; border-collapse:collapse; font-size:13.5px; min-width:600px; background:#fff; }
+        table.tbl th { text-align:right; font-size:10.5px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:var(--muted); padding:14px 16px; border-bottom:1px solid var(--line); white-space:nowrap; }
+        table.tbl th:first-child, table.tbl td:first-child { text-align:left; }
+        table.tbl td { padding:13px 16px; border-bottom:1px solid var(--line); color:#4b5563; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+        table.tbl tbody tr:last-child td { border-bottom:none; }
+        table.tbl .name { font-weight:600; color:var(--ink); }
+        table.tbl .name small { display:block; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; color:#9ca3af; }
+        table.tbl .pos { color:var(--green); font-weight:700; }
+        table.tbl .neg { color:#dc2626; font-weight:700; }
+        table.tbl tfoot td { background:var(--bg); font-weight:800; color:var(--ink); border-top:2px solid var(--line); border-bottom:none; }
+        .cap { font-size:13px; color:var(--muted); margin-top:12px; }
+
+        .inc { list-style:none; display:grid; grid-template-columns:1fr; gap:11px; }
+        .inc li { font-size:15px; color:#4b5563; display:flex; gap:10px; align-items:baseline; }
+        .inc li::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); flex-shrink:0; transform:translateY(-2px); }
+        .inc b { color:var(--ink); font-weight:700; }
+
+        /* Mejores anuncios: card con miniatura del creativo */
+        .topads { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+        .adcard { background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; }
+        .adthumb { width:100%; aspect-ratio:4/5; object-fit:cover; object-position:top; background:#e9e4dd; display:block; }
+        .adbody { padding:16px 18px; flex:1; display:flex; flex-direction:column; }
+        .adrank { font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--green); margin-bottom:4px; }
+        .adname { font-size:14px; font-weight:700; color:var(--ink); line-height:1.3; margin-bottom:4px; }
+        .adname small { display:block; font-size:10.5px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; color:#9ca3af; margin-top:2px; }
+        .admetrics { display:flex; gap:14px; border-top:1px solid var(--line); padding-top:12px; margin-top:auto; }
+        .admetric { flex:1; }
+        .admetric .k { font-size:10px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--muted); }
+        .admetric .v { font-size:15px; font-weight:900; color:var(--ink); letter-spacing:-0.5px; white-space:nowrap; }
+        .admetric .v.roas { color:var(--green); }
+
+        /* Listas con título en su línea y explicación debajo */
+        .findings { list-style:none; display:flex; flex-direction:column; gap:18px; }
+        .findings li { position:relative; padding-left:24px; }
+        .findings li::before { content:''; position:absolute; left:0; top:7px; width:8px; height:8px; border-radius:50%; background:var(--green); }
+        .findings b { display:block; font-size:16px; font-weight:800; color:var(--ink); letter-spacing:-0.2px; margin-bottom:4px; }
+        .findings p { font-size:14.5px; color:#4b5563; line-height:1.6; margin:0; }
+
+        .pillars { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+        .pillar { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 22px; }
+        .pillar-t { font-size:16px; font-weight:800; color:var(--ink); letter-spacing:-0.3px; margin-bottom:8px; }
+        .pillar p { font-size:14px; margin:0; color:#4b5563; line-height:1.5; }
+
+        .foot { margin-top:48px; padding-top:24px; border-top:1px solid var(--line); font-size:13px; color:var(--muted); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+        .foot img { height:16px; opacity:0.7; vertical-align:middle; filter:brightness(0); }
+
+        .pdf-btn { position:fixed; bottom:24px; right:24px; z-index:50; background:var(--navy); color:#fff; border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:14px; padding:13px 22px; border-radius:50px; box-shadow:0 8px 24px rgba(0,0,0,0.18); display:inline-flex; align-items:center; gap:8px; }
+        .pdf-btn:hover { background:#16324a; }
+
+        @media (max-width:720px) {
+            .page { padding:40px 20px 60px; }
+            .doc-head { flex-direction:column; align-items:flex-start; gap:14px; }
+            .doc-meta { text-align:left; }
+            h1 { font-size:28px; letter-spacing:-1px; }
+            .metrics { grid-template-columns:1fr; }
+            .pillars { grid-template-columns:1fr; }
+            .summary { padding:24px; }
+        }
+
+        @media print {
+            .pdf-btn { display:none; }
+            .page { max-width:100%; }
+            .metric, .tbl-wrap, .pillar, .summary { break-inside:avoid; }
+        }
+    </style>
+</head>
+<body>
+    <button class="pdf-btn" onclick="descargarPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Descargar PDF
+    </button>
+
+    <div class="page">
+
+        <header class="doc-head">
+            <div class="logos">
+                <img class="client" src="onside-logo.png" alt="Onside">
+                <span>&times;</span>
+                <img class="lareal" src="logo-la-real.png" alt="LA REAL">
+            </div>
+            <div class="doc-meta">Reporte mensual<br>Junio 2026</div>
+        </header>
+
+        <div class="eyebrow">Reporte de resultados · Onside</div>
+        <h1>Junio 2026</h1>
+        <p class="lead">Primer mes de pauta digital de la marca. Este reporte evalúa la <strong>venta de la tienda online</strong> (los canales de mostrador, Rappi y mayoristas se miden aparte).</p>
+
+        <!-- ===== 1. RESUMEN GENERAL (lo escribe el equipo) ===== -->
+        <section>
+            <h2>1 · Resumen general</h2>
+            <div class="summary">
+                <div class="todo">[[RESUMEN GENERAL — lo redacta el equipo antes de enviar: enfoque del mes, lectura de resultados y aprendizajes]]</div>
+            </div>
+        </section>
+
+        <!-- ===== 2. PAUTA ===== -->
+        <section>
+            <h2>2 · Pauta</h2>
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-l">Inversión</div>
+                    <div class="metric-v">$ 1.749.407</div>
+                    <div class="delta flat">Primer mes de pauta</div>
+                    <div class="metric-sub">Campañas encendidas el 10 de junio</div>
+                </div>
+                <div class="metric hl">
+                    <div class="metric-l">Venta neta online</div>
+                    <div class="metric-v">$ 4.385.496</div>
+                    <div class="delta good"><span>▲</span> +179% vs mayo</div>
+                    <div class="metric-sub">Antes: $ 1.574.067</div>
+                </div>
+                <div class="metric hl">
+                    <div class="metric-l">ROAS</div>
+                    <div class="metric-v">2,5x</div>
+                    <div class="delta flat">Venta neta online ÷ inversión</div>
+                    <div class="metric-sub">El ROAS de Meta por campaña va en la tabla</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-l">% Inversión</div>
+                    <div class="metric-v">39,9%</div>
+                    <div class="delta flat">Inversión ÷ venta neta online</div>
+                    <div class="metric-sub">Alto por diseño: mes de lanzamiento y compra de datos</div>
+                </div>
+            </div>
+            <div class="sublabel">Campañas del mes</div>
+            <div class="tbl-wrap">
+                <table class="tbl">
+                    <thead><tr><th>Campaña</th><th>Inversión</th><th>ROAS (Meta)</th><th>Resultado</th></tr></thead>
+                    <tbody>
+                        <tr><td class="name">Para que nos compren · Sitio web <small>desde el 10 jun</small></td><td>$ 1.103.292</td><td>2,43x</td><td>10 compras</td></tr>
+                        <tr><td class="name">Presupuesto dedicado · Videos venta <small>desde el 18 jun</small></td><td>$ 366.113</td><td>5,39x</td><td>4 compras</td></tr>
+                        <tr><td class="name">Para que nos conozcan · Instagram <small>desde el 10 jun</small></td><td>$ 280.002</td><td>—</td><td>593 seguidores ($ 472 c/u)</td></tr>
+                    </tbody>
+                    <tfoot><tr><td>Total</td><td>$ 1.749.407</td><td>2,66x</td><td>14 compras · 686 seguidores</td></tr></tfoot>
+                </table>
+            </div>
+            <p class="cap">El ROAS de esta tabla es el que reporta Meta (atribución de plataforma); la métrica principal del mes es el ROAS real de arriba (venta neta ÷ inversión). La pauta sumó <strong>686 seguidores nuevos de Instagram en el mes</strong>: 593 de la campaña de reconocimiento (que además generó 4.269 visitas al perfil a $ 66 c/u) y 93 adicionales que llegaron "gratis" desde las campañas de venta. Alcance total: 81.833 cuentas · 156.079 impresiones · CTR 3,77% · CPC $ 297.</p>
+            <div class="sublabel">Los anuncios que vendieron</div>
+            <div class="topads">
+                <div class="adcard">
+                    <img class="adthumb" src="ad-dia-padre.png" alt="Video Día del Padre">
+                    <div class="adbody">
+                        <div class="adrank">#1 · El ganador del mes</div>
+                        <div class="adname">Video Día del Padre — "El tiempo pasa rápido"<small>Hecho por Ana, sin producción</small></div>
+                        <div class="admetrics">
+                            <div class="admetric"><div class="k">Gasto</div><div class="v">$ 178.372</div></div>
+                            <div class="admetric"><div class="k">ROAS Meta</div><div class="v roas">11,1x</div></div>
+                            <div class="admetric"><div class="k">Compras</div><div class="v">4 · $ 44.593 c/u</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="adcard">
+                    <img class="adthumb" src="ad-video-ana.png" alt="Video de Ana">
+                    <div class="adbody">
+                        <div class="adrank">#2 · El caballo de batalla</div>
+                        <div class="adname">Video de Ana — "Dejó de usar mis productos"<small>Contenido existente del lanzamiento</small></div>
+                        <div class="admetrics">
+                            <div class="admetric"><div class="k">Gasto</div><div class="v">$ 1.020.814</div></div>
+                            <div class="admetric"><div class="k">ROAS Meta</div><div class="v roas">2,6x</div></div>
+                            <div class="admetric"><div class="k">Compras</div><div class="v">10 · $ 102.081 c/u</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="cap">Los videos nuevos de creadores UGC ($ 259 mil invertidos entre 4 anuncios) aún no registran compras — siguen en prueba. La lectura del mes: <strong>el contenido de Ana convierte mejor que el de los creadores externos</strong>, y el video del Día del Padre — grabado en minutos, sin producción — fue el mejor anuncio del mes.</p>
+        </section>
+
+        <!-- ===== 3. TIENDA ONLINE ===== -->
+        <section>
+            <h2>3 · Tienda online</h2>
+            <div class="metrics">
+                <div class="metric hl">
+                    <div class="metric-l">Pedidos online</div>
+                    <div class="metric-v">20</div>
+                    <div class="delta good"><span>▲</span> +100% vs mayo</div>
+                    <div class="metric-sub">Antes: 10 pedidos</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-l">Ticket promedio online</div>
+                    <div class="metric-v">$ 219.275</div>
+                    <div class="delta good"><span>▲</span> +39% vs mayo</div>
+                    <div class="metric-sub">Venta neta ÷ pedidos · antes: $ 157.407</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-l">Tasa de clientes habituales</div>
+                    <div class="metric-v">23,8%</div>
+                    <div class="delta good"><span>▲</span> +114% vs mayo</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-l">Venta total online</div>
+                    <div class="metric-v">$ 5.338.741</div>
+                    <div class="delta good"><span>▲</span> +173% vs mayo</div>
+                    <div class="metric-sub">Con envíos e impuestos · antes: $ 1.953.140</div>
+                </div>
+            </div>
+            <div class="sublabel">Top de ventas por producto</div>
+            <div class="tbl-wrap">
+                <table class="tbl">
+                    <thead><tr><th>Producto</th><th>Junio</th><th>Mayo</th></tr></thead>
+                    <tbody>
+                        <tr><td class="name">Protector Solar SPF 50+</td><td>$ 1.820.000</td><td>$ 4.210.000</td></tr>
+                        <tr><td class="name">Crema Facial de Noche</td><td>$ 1.820.000</td><td>$ 2.240.000</td></tr>
+                        <tr><td class="name">Spray Texturizador</td><td>$ 1.030.000</td><td>$ 3.330.000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="cap">El top de productos incluye todos los canales (en mayo hubo una venta mayorista grande que infla la base). La venta que reportamos es la <strong>venta neta online</strong>: $ 4.385.496 (brutas $ 5.100.949 − descuentos $ 715.452, sin devoluciones). Hito del mes: <strong>desde el 13 de junio se cumplió la primera meta del lanzamiento — prácticamente una venta diaria por la tienda online</strong>, con pedidos de hasta $ 500–700 mil: señal de que el producto gusta y la marca ya genera confianza de compra.</p>
+        </section>
+
+        <!-- ===== 4. OPTIMIZACIÓN EN SITIO WEB ===== -->
+        <section>
+            <h2>4 · Optimización en sitio web</h2>
+            <ul class="findings">
+                <li>
+                    <b>Páginas de producto rediseñadas</b>
+                    <p>Beneficios clave en viñetas (vía metacampos) en lugar del texto largo, descripción completa como pestaña desplegable, y una sola plantilla para todos los productos.</p>
+                </li>
+                <li>
+                    <b>Popup de bienvenida con 10% de descuento</b>
+                    <p>Instalado con Shopify Forms para capturar correos desde la primera visita (antes el descuento estaba en un banner al fondo que nadie veía).</p>
+                </li>
+                <li>
+                    <b>Ofertas por volumen: duo pack −10%</b>
+                    <p>Instalada y configurada la app Kaching en los 5 productos, con el descuento subido de ~4% a 10% para que sea realmente atractivo.</p>
+                </li>
+                <li>
+                    <b>Colecciones limpias y sin puntos de fuga</b>
+                    <p>Grillas a 3 columnas, kits agregados a Piel y Capilar ordenados por más vendidos, y eliminados el blog, el video y el producto destacado que distraían de la compra.</p>
+                </li>
+                <li>
+                    <b>Checkout más fluido</b>
+                    <p>Casilla "guardar mi información" marcada por defecto y recomendados de kits al final de cada página de producto.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ===== 5. ENFOQUE DE JULIO ===== -->
+        <section>
+            <h2>5 · Enfoque de julio</h2>
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-t">1. Más contenido de Ana</div>
+                    <p>Los datos del mes la confirman como la creadora estrella de la marca. Videos sencillos estilo Día del Padre: aplicación en la playa, "los infaltables de viaje" y el ángulo de regalos, con voz en off.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-t">2. Seguir probando creadores UGC</div>
+                    <p>Tres creadores entregan contenido a fin de junio. El objetivo es encontrar otra "estrella" además de Ana; el presupuesto de prueba se mantiene acotado (regla del mes 1: comprar datos).</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-t">3. Escalar lo que ya funciona</div>
+                    <p>Más presupuesto a la campaña de videos de venta (ROAS Meta 5,4x) y al formato ganador. Meta interna de julio: multiplicar la venta online del lanzamiento.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-t">4. Sitio web y canales físicos</div>
+                    <p>Publicar los ingredientes en las páginas de producto (lo más preguntado por WhatsApp), títulos de kits con beneficio claro, y comunicar en redes la presencia en la feria de Bogotá, Mero Macho y Falabella.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="foot">
+            <span>Reporte preparado por <img src="logo-la-real.png" alt="LA REAL"> LA REAL</span>
+            <span>juanfe@larealmarketing.com</span>
+        </div>
+
+    </div>
+
+    <script>
+        function descargarPDF(){
+            const p = document.querySelector('.page');
+            const w = Math.ceil(p.getBoundingClientRect().width);
+            const h = Math.ceil(p.scrollHeight);
+            let s = document.getElementById('pageSize');
+            if(!s){ s = document.createElement('style'); s.id = 'pageSize'; document.head.appendChild(s); }
+            s.textContent = '@page { size: ' + w + 'px ' + (h + 48) + 'px; margin: 0; }';
+            window.print();
+        }
+    </script>
+</body>
+</html>
